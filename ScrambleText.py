@@ -8,10 +8,14 @@ letters = "abcdefghijklmnopqrstuvwxyzäöüßéłABCDEFGHIJKLMNOPQRSTUVWXYZÄÖ�
 nonletters = " \t\n()[]\"',.;:–0123456789*/+-"
 
 def scramble(word, front=1, end=1):
-    w = list(word[front:-end])
-    random.shuffle(w)
-    w = list(word[:front])+w+list(word[-end:])
-    return "".join(w)
+    word="".join(word)
+    if len(word)>front+end:
+        w = list(word[front:-end])
+        random.shuffle(w)
+        w = list(word[:front])+w+list(word[-end:])
+        return "".join(w)
+    else:
+        return word
 
 def obfuscate(text):
     newtext = ""
@@ -28,7 +32,6 @@ def obfuscate(text):
             newtext += l
     return newtext
 
-with open(sys.argv[1]) as f:
-    for line in f:
-        print obfuscate(line)
+for line in sys.stdin:
+    print obfuscate(line)
         
